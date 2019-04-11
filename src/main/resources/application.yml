@@ -1,0 +1,27 @@
+server:
+  port: 9002
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          yconnect:
+            provider:                     "yconnect"
+            client-name:                  "Yahoo! Japan"
+            client-id:                    "[env]"
+            client-secret:                "[env]"
+            authorization-grant-type:     "authorization_code"
+            client-authentication-method: "POST"
+            redirect-uri:                 "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - openid 
+              - profile 
+              - email
+        provider: 
+          yconnect:
+            authorization-uri:   "https://auth.login.yahoo.co.jp/yconnect/v2/authorization"
+            token-uri:           "https://auth.login.yahoo.co.jp/yconnect/v2/token"
+            jwk-set-uri:         "https://auth.login.yahoo.co.jp/yconnect/v2/jwks"
+            user-info-uri:       "https://userinfo.yahooapis.jp/yconnect/v2/attribute"
+            user-name-attribute: "sub"
