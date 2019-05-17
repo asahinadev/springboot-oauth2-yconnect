@@ -24,4 +24,9 @@ spring:
             token-uri:           "https://auth.login.yahoo.co.jp/yconnect/v2/token"
             jwk-set-uri:         "https://auth.login.yahoo.co.jp/yconnect/v2/jwks"
             user-info-uri:       "https://userinfo.yahooapis.jp/yconnect/v2/attribute"
-            user-name-attribute: "sub"
+            user-name-attribute: "sub"  profiles:    active:    - dev
+
+logging:
+  level:    root: WARN
+    com.example.spring.yconnect: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
