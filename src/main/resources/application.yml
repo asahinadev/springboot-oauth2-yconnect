@@ -18,15 +18,28 @@ spring:
               - openid 
               - profile 
               - email
+              - address
         provider: 
           yconnect:
             authorization-uri:   "https://auth.login.yahoo.co.jp/yconnect/v2/authorization"
             token-uri:           "https://auth.login.yahoo.co.jp/yconnect/v2/token"
             jwk-set-uri:         "https://auth.login.yahoo.co.jp/yconnect/v2/jwks"
             user-info-uri:       "https://userinfo.yahooapis.jp/yconnect/v2/attribute"
-            user-name-attribute: "sub"  profiles:    active:    - dev
+            user-name-attribute: "sub"
+  profiles:
+    active:
+    - dev
+
+  datasource:
+    url:      "jdbc:mysql://localhost:3306/spring-demo_oauth2"
+    username: "spring-demo"
+    password: "spring-demo"
+
+  flyway:
+    encoding: UTF-8
 
 logging:
-  level:    root: WARN
+  level:
+    root: WARN
     com.example.spring.yconnect: DEBUG
     org.springframework.web.client.RestTemplate: DEBUG

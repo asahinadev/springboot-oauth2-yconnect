@@ -18,15 +18,16 @@ dependencies {
     implementation  'org.springframework.boot:spring-boot-starter-security'
     implementation  'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation  'org.springframework.boot:spring-boot-starter-web'
+    implementation  'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation  'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-    implementation  'org.springframework.boot:spring-boot-configuration-processor'
-    implementation  'org.projectlombok:lombok:1.18.6'
-    
+    implementation  'org.flywaydb:flyway-core'
+    implementation  'mysql:mysql-connector-java'
+
     compileOnly  'org.springframework.boot:spring-boot-configuration-processor'
-    compileOnly  'org.projectlombok:lombok:1.18.6'
+    compileOnly  'org.projectlombok:lombok'
 
     annotationProcessor  'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor  'org.projectlombok:lombok:1.18.6'
+    annotationProcessor  'org.projectlombok:lombok'
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 
