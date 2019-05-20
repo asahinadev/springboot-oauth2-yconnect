@@ -40,9 +40,10 @@ public class UserService implements UserDetailsService {
 
 	public User save(OidcUser user) {
 		log.debug("save({})", user);
-		log.debug("save({})", user.getAddress());
-		log.debug("save({})", user);
-		log.debug("save({})", user);
+		log.debug("{}", user.getIdToken());
+		log.debug("{}", user.getUserInfo());
+		log.debug("{}", user.getAddress());
+		log.debug("{}", user.getAttributes());
 
 		User newUser = userRepository.findByEmail(user.getEmail());
 
