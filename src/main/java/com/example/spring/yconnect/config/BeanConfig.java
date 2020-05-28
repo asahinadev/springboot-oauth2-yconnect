@@ -1,5 +1,6 @@
 package com.example.spring.yconnect.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
@@ -10,10 +11,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class BeanConfig {
 
-	protected static final String API = "https://map.yahooapis.jp/search/local/V1/";
+	protected static final String API = "https://map.yahooapis.jp/";
 
 	@Bean
 	public WebClient yahooapis(
+			@Autowired YahooApiConfig config,
 			ReactiveClientRegistrationRepository clientRegistrationRepo,
 			ServerOAuth2AuthorizedClientRepository authorizedClientRepo) {
 
@@ -22,7 +24,9 @@ public class BeanConfig {
 
 		return WebClient.builder()
 				.baseUrl(API)
-				.filter(filter).build();
+				.defaultHeader("User-Agent", "Yahoo AppID: " + config.getApikey())
+				.filter(filter)
+				.build();
 	}
 
 }
