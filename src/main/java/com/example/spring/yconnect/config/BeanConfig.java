@@ -10,10 +10,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class BeanConfig {
 
-	protected static final String GMAIL_API = "https://www.googleapis.com/gmail/v1/";
+	protected static final String API = "https://map.yahooapis.jp/search/local/V1/";
 
 	@Bean
-	public WebClient gmailClient(
+	public WebClient yahooapis(
 			ReactiveClientRegistrationRepository clientRegistrationRepo,
 			ServerOAuth2AuthorizedClientRepository authorizedClientRepo) {
 
@@ -21,7 +21,8 @@ public class BeanConfig {
 		filter = new ServerOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrationRepo, authorizedClientRepo);
 
 		return WebClient.builder()
-				.baseUrl(GMAIL_API)
+				.baseUrl(API)
 				.filter(filter).build();
 	}
+
 }

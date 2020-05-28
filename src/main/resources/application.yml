@@ -31,9 +31,9 @@ spring:
     - dev
 
   datasource:
-    url:      "jdbc:mysql://localhost:3306/spring-demo_oauth2"
-    username: "spring-demo"
-    password: "spring-demo"
+    url:      "jdbc:mysql://localhost:3306/springboot-demo"
+    username: "springboot-demo"
+    password: "springboot-demo"
 
   flyway:
     encoding: UTF-8
