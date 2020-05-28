@@ -1,5 +1,7 @@
 package com.example.spring.yconnect.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,8 +11,8 @@ import com.example.spring.yconnect.entity.User;
 public interface UserRepository
 		extends JpaRepository<User, Long> {
 
-	public User findByUsername(String username);
+	public Optional<User> findByUsername(String username);
 
-	public User findByEmail(String email);
+	public Optional<User> findByEmail(String email);
 
 }

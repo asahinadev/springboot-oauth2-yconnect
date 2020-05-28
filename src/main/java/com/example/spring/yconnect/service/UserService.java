@@ -31,54 +31,9 @@ public class UserService implements UserDetailsService {
 		Objects.requireNonNull(username, "username not null");
 		log.debug("loadUserByUsername({})", username);
 
-		User user = userRepository.findByUsername(username);
-		if (user == null) {
-			user = userRepository.findByEmail(username);
-		}
-		return user;
-	}
-
-	public User save(OidcUser user) {
-		log.debug("save({})", user);
-		log.debug("{}", user.getIdToken());
-		log.debug("{}", user.getUserInfo());
-		log.debug("{}", user.getAddress());
-		log.debug("{}", user.getAttributes());
-
-		User newUser = userRepository.findByEmail(user.getEmail());
-
-		if (newUser == null) {
-
-			newUser = new User();
-			newUser.setUsername(user.getIssuer().toString() + "/" + user.getSubject());
-			newUser.setEmail(user.getEmail());
-			newUser.setPassword(UUID.randomUUID().toString());
-			newUser.setEnable(true);
-
-			newUser.setDispname(user.getNickName());
-			newUser.setFamilyName(user.getFamilyName());
-			newUser.setLastName(user.getGivenName());
-			newUser.setGenderByName(user.getGender());
-			newUser.setTimeZone(user.getZoneInfo());
-			newUser.setLocale(user.getLocale());
-			newUser.setBirthYear(null);
-			newUser.setBirthMonth(null);
-			newUser.setBirthDay(null);
-			newUser.setPicture(user.getPicture());
-			newUser.setCountry(user.getAddress().getCountry());
-			newUser.setPostCode(user.getAddress().getPostalCode());
-			newUser.setRegion(user.getAddress().getRegion());
-			newUser.setLocation(user.getAddress().getLocality());
-			newUser.setAddress1(user.getAddress().getFormatted());
-			newUser.setAddress2(user.getAddress().getStreetAddress());
-			newUser.setAddress3(null);
-
-			return userRepository.saveAndFlush(newUser);
-
-		}
-
-		return newUser;
-
+		return userRepository.findByUsername(username)
+				.orElse(userRepository.findByEmail(username)
+						.orElseThrow(() -> new UsernameNotFoundException(username)));
 	}
 
 	public User save(User user) {
@@ -86,10 +41,21 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User insert(User user) {
-		return userRepository.save(user);
+		if (Objects.isNull(user.getId())) {
+			return userRepository.save(user);
+		}
+		throw new IllegalArgumentException();
 	}
 
 	public User update(User user) {
+		// 更新を行う場合は id 必須
+		if (Objects.isNull(user.getId())) {
+			throw new IllegalArgumentException();
+		}
+		// 更新を行う場合は id が登録されている
+		if (userRepository.existsById(user.getId())) {
+			throw new IllegalArgumentException();
+		}
 		return userRepository.save(user);
 	}
 
@@ -99,15 +65,15 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User findByUsername(String username) {
-		return userRepository.findByUsername(username);
+		return userRepository.findByUsername(username).orElse(null);
 	}
 
 	public User findByEmail(String email) {
-		return userRepository.findByEmail(email);
+		return userRepository.findByEmail(email).orElse(null);
 	}
 
 	public User findById(Long id) {
-		return userRepository.getOne(id);
+		return userRepository.findById(id).orElse(null);
 	}
 
 	public Page<User> findAll(Pageable pageable) {
