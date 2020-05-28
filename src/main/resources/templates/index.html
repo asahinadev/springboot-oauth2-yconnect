@@ -28,29 +28,16 @@
 
 <meta name="theme-color" content="#563d7c">
 
-
 <style>
-.bd-placeholder-img {
-	font-size: 1.125rem;
-	text-anchor: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-@media ( min-width : 768px) {
-	.bd-placeholder-img-lg {
-		font-size: 3.5rem;
-	}
+body {
+	padding-top: 80px;
 }
 </style>
-
 <!-- Custom styles for this template -->
 <link href="sticky-footer-navbar.css" rel="stylesheet">
 </head>
 
-<body class="d-flex flex-column h-100 pt-5">
+<body class="d-flex flex-column h-100">
 	<header>
 		<!-- Fixed navbar -->
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -74,6 +61,23 @@
 	<!-- Begin page content -->
 	<main role="main" class="flex-shrink-0">
 		<div class="container">
+			
+			<div class="card">
+				<div class="card-body">
+					<dl class="row mb-0">
+						<dt class="col-2">email</dt>
+						<dd class="col" sec:authentication="principal.email">[principal.email]</dd>
+					</dl>
+					<dl class="row mb-0">
+						<dt class="col-2">picture</dt>
+						<dd class="col" sec:authentication="principal.picture">[principal.picture]</dd>
+					</dl>
+					<dl class="row mb-1">
+						<dt class="col-2">locale</dt>
+						<dd class="col" sec:authentication="principal.locale">[principal.locale]</dd>
+					</dl>
+				</div>
+			</div>
 		</div>
 	</main>
 
