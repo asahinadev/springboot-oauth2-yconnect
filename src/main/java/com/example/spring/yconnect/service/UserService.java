@@ -1,7 +1,7 @@
 package com.example.spring.yconnect.service;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 
 import com.example.spring.yconnect.entity.User;
@@ -60,7 +59,7 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User deleted(User user) {
-		user.setEnable(false);
+		user.setDeleted(LocalDateTime.now());
 		return userRepository.save(user);
 	}
 

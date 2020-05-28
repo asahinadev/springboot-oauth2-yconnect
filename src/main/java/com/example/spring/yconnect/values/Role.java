@@ -19,12 +19,18 @@ public enum Role implements GrantedAuthority {
 	}
 
 	public List<Role> roles() {
-		if (this == SYSTEM) {
+		switch (this) {
+
+		case SYSTEM:
 			return Arrays.asList(this, ADMIN, USER);
-		} else if (this == ADMIN) {
+
+		case ADMIN:
 			return Arrays.asList(this, USER);
+
+		default:
+			return Arrays.asList(this);
+
 		}
-		return Arrays.asList(this);
 	}
 
 }
