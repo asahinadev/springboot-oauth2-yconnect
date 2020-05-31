@@ -9,7 +9,17 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
-public class StringJoiner implements Collector<Object, StringBuilder, String> {
+public class StringJoiner implements Collector<Object, StringBuilder, StringBuilder> {
+
+	String joinString;
+
+	public StringJoiner() {
+		this(",");
+	}
+
+	public StringJoiner(String joinString) {
+		this.joinString = joinString;
+	}
 
 	@Override
 	public Supplier<StringBuilder> supplier() {
@@ -26,17 +36,17 @@ public class StringJoiner implements Collector<Object, StringBuilder, String> {
 		return (a, b) -> {
 			if (b.length() > 0) {
 				if (a.length() > 0) {
-					a.append(",");
+					a.append(joinString);
 				}
 				a.append(b);
 			}
-			return null;
+			return a;
 		};
 	}
 
 	@Override
-	public Function<StringBuilder, String> finisher() {
-		return StringBuilder::toString;
+	public Function<StringBuilder, StringBuilder> finisher() {
+		return null;
 	}
 
 	@Override

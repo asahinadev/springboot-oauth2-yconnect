@@ -2,21 +2,16 @@ package com.example.spring.yconnect.dto.ydt;
 
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * YDF ルート情報。
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor(staticName = "of")
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class Ydf {
 
@@ -31,5 +26,8 @@ public class Ydf {
 
 	@JsonProperty("Error")
 	Map<String, Object> error;
+
+	@JsonAnySetter
+	Map<String, Object> any;
 
 }

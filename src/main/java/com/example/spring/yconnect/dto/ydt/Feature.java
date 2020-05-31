@@ -47,7 +47,7 @@ public class Feature {
 
 	/** プロパティ. */
 	@JsonProperty("Property")
-	Map<String, Object> property;
+	Property property;
 
 	/** スタイル情報. */
 	@JsonProperty("Style")

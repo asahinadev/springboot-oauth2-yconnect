@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.spring.yconnect.converter.StringJoiner;
 import com.fasterxml.jackson.databind.util.StdConverter;
 
 import lombok.AllArgsConstructor;
@@ -44,7 +45,7 @@ public class Coordinate {
 		public String convert(List<Coordinate> values) {
 			Serializer serializer = new Serializer();
 			return values.stream().map(serializer::convert)
-					.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+					.collect(new StringJoiner(" "))
 					.toString();
 		}
 
@@ -67,7 +68,7 @@ public class Coordinate {
 		@Override
 		public List<Coordinate> convert(String value) {
 			Deserializer deserializer = new Deserializer();
-			return Arrays.stream(value.split(new String(new char[] { 0x20 })))
+			return Arrays.stream(value.split("\\s"))
 					.map(deserializer::convert)
 					.collect(Collectors.toList());
 		}

@@ -4,23 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
-/**
- * ルート検索結果の経路詳細情報を含める要素です。
- */
 @Data
-public class RouteInfo {
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class Country {
 
-	/** Edge. */
-	@JsonProperty("Edge")
-	Map<String, Object> edge;
+	@JsonProperty("Code")
+	String code;
 
-	/** プロパティ. */
-	@JsonProperty("Property")
-	Property property;
+	@JsonProperty("Name")
+	String name;
 
 	@JsonAnySetter
 	Map<String, Object> any = new HashMap<>();

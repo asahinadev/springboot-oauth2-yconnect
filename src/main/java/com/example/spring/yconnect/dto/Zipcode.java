@@ -57,7 +57,8 @@ public class Zipcode {
 		if (!Objects.isNull(zkind) && zkind.length > 1) {
 			m.add("zkind", Arrays.stream(zkind)
 					.map(Area::ordinal)
-					.collect(new StringJoiner()));
+					.collect(new StringJoiner())
+					.toString());
 		}
 
 		m.add("start", Integer.toString(start));

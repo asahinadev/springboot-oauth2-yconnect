@@ -33,9 +33,9 @@ public class Weather {
 		}
 
 		if (Objects.isNull(date)) {
-			m.add("date", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyymmddHHmm")));
+			m.add("date", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")));
 		} else {
-			m.add("date", date.format(DateTimeFormatter.ofPattern("yyyymmddHHmm")));
+			m.add("date", date.format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")));
 		}
 
 		m.add("past", Integer.toString(past));

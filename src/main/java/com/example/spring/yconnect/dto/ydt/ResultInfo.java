@@ -1,20 +1,18 @@
 package com.example.spring.yconnect.dto.ydt;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * YDFデータのレスポンス情報全体に関する情報を設定する要素です。
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor(staticName = "of")
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class ResultInfo {
 
@@ -45,5 +43,11 @@ public class ResultInfo {
 	/** 著作権表示. */
 	@JsonProperty("Copyright")
 	String copyright;
+
+	@JsonProperty("CompressType")
+	String compressType;
+
+	@JsonAnySetter
+	Map<String, Object> any = new HashMap<>();
 
 }

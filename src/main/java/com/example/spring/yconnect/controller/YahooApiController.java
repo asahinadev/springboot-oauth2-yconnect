@@ -45,7 +45,7 @@ public class YahooApiController {
 	@ResponseBody
 	@GetMapping("local-search")
 	public Mono<Ydf> localSearch(LocalSearch params) {
-		log.debug("{}", params);
+		log.debug("{} => {}", params, params.parameters());
 		return yahooapis.get()
 				.uri(b -> b.path("search/local/V1/localSearch")
 						.queryParams(params.parameters()).build())
@@ -56,7 +56,7 @@ public class YahooApiController {
 	@ResponseBody
 	@GetMapping("geocoder")
 	public Mono<Ydf> geocoder(GeoCoder params) {
-		log.debug("{}", params);
+		log.debug("{} => {}", params, params.parameters());
 		return yahooapis.get()
 				.uri(b -> b.path("geocode/V1/geoCoder")
 						.queryParams(params.parameters()).build())
@@ -67,7 +67,7 @@ public class YahooApiController {
 	@ResponseBody
 	@GetMapping(path = "reverse-geocoder", params = { "lon", "lat" })
 	public Mono<Ydf> reverseGeocoder(ReverseGeoCoder params) {
-		log.debug("{}", params);
+		log.debug("{} => {}", params, params.parameters());
 		return yahooapis.get()
 				.uri(b -> b.path("geoapi/V1/reverseGeoCoder")
 						.queryParams(params.parameters()).build())
@@ -78,7 +78,7 @@ public class YahooApiController {
 	@ResponseBody
 	@GetMapping(path = "weather")
 	public Mono<Ydf> weather(Weather params) {
-		log.debug("{}", params);
+		log.debug("{} => {}", params, params.parameters());
 		return yahooapis.get()
 				.uri(b -> b.path("weather/V1/place")
 						.queryParams(params.parameters()).build())
@@ -89,7 +89,7 @@ public class YahooApiController {
 	@ResponseBody
 	@GetMapping(path = "zipcode")
 	public Mono<Ydf> zipcode(Zipcode params) {
-		log.debug("{}", params);
+		log.debug("{} => {}", params, params.parameters());
 		return yahooapis.get()
 				.uri(b -> b.path("search/zip/V1/zipCodeSearch")
 						.queryParams(params.parameters()).build())
@@ -100,7 +100,7 @@ public class YahooApiController {
 	@ResponseBody
 	@GetMapping(path = "review/{uid}")
 	public Mono<Ydf> review(Review params, @PathVariable("uid") String uid) {
-		log.debug("{}", params);
+		log.debug("{} => {}", params, params.parameters());
 		return yahooapis.get()
 				.uri(b -> b.path("olp/v1/review/{uid}")
 						.queryParams(params.parameters()).build(uid))
