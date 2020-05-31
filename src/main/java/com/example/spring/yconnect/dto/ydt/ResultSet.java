@@ -1,6 +1,7 @@
 package com.example.spring.yconnect.dto.ydt;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -11,22 +12,25 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Area {
+public class ResultSet {
 
-	@JsonProperty("Id")
-	String id;
+	@JsonProperty("Address")
+	List<String> address;
 
-	@JsonProperty("Code")
-	String code;
+	@JsonProperty("Roadname")
+	String roadname;
 
-	@JsonProperty("Name")
-	String name;
+	@JsonProperty("Country")
+	Country country;
 
-	@JsonProperty("Score")
-	Double score;
+	@JsonProperty("Area")
+	List<Area> areas;
 
-	@JsonProperty("Type")
-	Long type;
+	@JsonProperty("Result")
+	List<Result> results;
+
+	@JsonProperty("Govcode")
+	String govcode;
 
 	@JsonAnySetter
 	Map<String, Object> any = new HashMap<>();

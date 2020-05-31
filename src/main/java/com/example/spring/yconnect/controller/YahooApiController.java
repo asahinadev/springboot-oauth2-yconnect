@@ -15,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.example.spring.yconnect.config.YahooApiConfig;
 import com.example.spring.yconnect.dto.GeoCoder;
 import com.example.spring.yconnect.dto.LocalSearch;
+import com.example.spring.yconnect.dto.LatLong;
 import com.example.spring.yconnect.dto.ReverseGeoCoder;
 import com.example.spring.yconnect.dto.Review;
 import com.example.spring.yconnect.dto.Weather;
@@ -104,6 +105,17 @@ public class YahooApiController {
 		return yahooapis.get()
 				.uri(b -> b.path("olp/v1/review/{uid}")
 						.queryParams(params.parameters()).build(uid))
+				.retrieve()
+				.bodyToMono(Ydf.class);
+	}
+
+	@ResponseBody
+	@GetMapping(path = "placeinfo", params = { "lon", "lat" })
+	public Mono<Ydf> placeinfo(LatLong params) {
+		log.debug("{} => {}", params, params.parameters());
+		return yahooapis.get()
+				.uri(b -> b.path("placeinfo/V1/get")
+						.queryParams(params.parameters()).build())
 				.retrieve()
 				.bodyToMono(Ydf.class);
 	}

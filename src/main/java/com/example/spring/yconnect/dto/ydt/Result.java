@@ -11,13 +11,10 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Area {
+public class Result {
 
-	@JsonProperty("Id")
-	String id;
-
-	@JsonProperty("Code")
-	String code;
+	@JsonProperty("Uid")
+	String uid;
 
 	@JsonProperty("Name")
 	String name;
@@ -25,8 +22,17 @@ public class Area {
 	@JsonProperty("Score")
 	Double score;
 
-	@JsonProperty("Type")
-	Long type;
+	@JsonProperty("Category")
+	String category;
+
+	@JsonProperty("Label")
+	String label;
+
+	@JsonProperty("Combined")
+	String combined;
+
+	@JsonProperty("Where")
+	String where;
 
 	@JsonAnySetter
 	Map<String, Object> any = new HashMap<>();

@@ -24,6 +24,9 @@ public class Ydf {
 	@JsonProperty("Dictionary")
 	Map<String, Object> dictionary;
 
+	@JsonProperty("ResultSet")
+	ResultSet resultSet;
+
 	@JsonProperty("Error")
 	Map<String, Object> error;
 
