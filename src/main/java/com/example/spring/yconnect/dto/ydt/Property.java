@@ -86,6 +86,9 @@ public class Property {
 	@JsonProperty("UpdateDate")
 	String updateDate;
 
+	@JsonProperty("AddressDirectory")
+	List<AddressDirectory> addressDirectories;
+
 	Map<String, String> values = new HashMap<>();
 
 	Map<String, Object> any = new HashMap<>();

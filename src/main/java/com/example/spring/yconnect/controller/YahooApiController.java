@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.spring.yconnect.config.YahooApiConfig;
+import com.example.spring.yconnect.dto.AddressDirectory;
 import com.example.spring.yconnect.dto.GeoCoder;
 import com.example.spring.yconnect.dto.LocalSearch;
 import com.example.spring.yconnect.dto.LatLong;
@@ -115,6 +116,17 @@ public class YahooApiController {
 		log.debug("{} => {}", params, params.parameters());
 		return yahooapis.get()
 				.uri(b -> b.path("placeinfo/V1/get")
+						.queryParams(params.parameters()).build())
+				.retrieve()
+				.bodyToMono(Ydf.class);
+	}
+
+	@ResponseBody
+	@GetMapping(path = "address", params = { "ac" })
+	public Mono<Ydf> address(AddressDirectory params) {
+		log.debug("{} => {}", params, params.parameters());
+		return yahooapis.get()
+				.uri(b -> b.path("search/address/V1/addressDirectory")
 						.queryParams(params.parameters()).build())
 				.retrieve()
 				.bodyToMono(Ydf.class);
