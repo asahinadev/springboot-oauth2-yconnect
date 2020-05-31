@@ -15,6 +15,7 @@ import com.example.spring.yconnect.config.YahooApiConfig;
 import com.example.spring.yconnect.dto.GeoCoder;
 import com.example.spring.yconnect.dto.LocalSearch;
 import com.example.spring.yconnect.dto.ReverseGeoCoder;
+import com.example.spring.yconnect.dto.Weather;
 import com.example.spring.yconnect.dto.ydt.Ydf;
 
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +67,17 @@ public class YahooApiController {
 		log.debug("{}", params);
 		return yahooapis.get()
 				.uri(b -> b.path("geoapi/V1/reverseGeoCoder")
+						.queryParams(params.parameters()).build())
+				.retrieve()
+				.bodyToMono(Ydf.class);
+	}
+
+	@ResponseBody
+	@GetMapping(path = "weather")
+	public Mono<Ydf> weather(Weather params) {
+		log.debug("{}", params);
+		return yahooapis.get()
+				.uri(b -> b.path("weather/V1/place")
 						.queryParams(params.parameters()).build())
 				.retrieve()
 				.bodyToMono(Ydf.class);
