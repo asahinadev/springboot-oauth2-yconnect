@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -15,6 +16,7 @@ import com.example.spring.yconnect.config.YahooApiConfig;
 import com.example.spring.yconnect.dto.GeoCoder;
 import com.example.spring.yconnect.dto.LocalSearch;
 import com.example.spring.yconnect.dto.ReverseGeoCoder;
+import com.example.spring.yconnect.dto.Review;
 import com.example.spring.yconnect.dto.Weather;
 import com.example.spring.yconnect.dto.Zipcode;
 import com.example.spring.yconnect.dto.ydt.Ydf;
@@ -91,6 +93,17 @@ public class YahooApiController {
 		return yahooapis.get()
 				.uri(b -> b.path("search/zip/V1/zipCodeSearch")
 						.queryParams(params.parameters()).build())
+				.retrieve()
+				.bodyToMono(Ydf.class);
+	}
+
+	@ResponseBody
+	@GetMapping(path = "review/{uid}")
+	public Mono<Ydf> review(Review params, @PathVariable("uid") String uid) {
+		log.debug("{}", params);
+		return yahooapis.get()
+				.uri(b -> b.path("olp/v1/review/{uid}")
+						.queryParams(params.parameters()).build(uid))
 				.retrieve()
 				.bodyToMono(Ydf.class);
 	}
