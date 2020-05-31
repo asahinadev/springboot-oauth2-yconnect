@@ -24,7 +24,8 @@ public class BeanConfig {
 
 		return WebClient.builder()
 				.baseUrl(API)
-				.defaultHeader("User-Agent", "Yahoo AppID: " + config.getApikey())
+				.defaultHeader(
+						"User-Agent", "Yahoo AppID: " + config.getApikey())
 				.filter(filter)
 				.build();
 	}

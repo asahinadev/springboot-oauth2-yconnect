@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.stereotype.Controller;
@@ -17,16 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.spring.yconnect.config.YahooApiConfig;
+import com.example.spring.yconnect.dto.GeoCoder;
+import com.example.spring.yconnect.dto.ReverseGeoCoder;
+import com.example.spring.yconnect.dto.ydt.Ydf;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Controller
 @RequestMapping("/yahooapis")
 public class YahooApiController {
-
-	private class MapTypeReference extends ParameterizedTypeReference<Map<String, Object>> {
-
-	}
 
 	protected Consumer<Map<String, Object>> attributes(OAuth2AuthorizedClient client) {
 		return ServerOAuth2AuthorizedClientExchangeFilterFunction.oauth2AuthorizedClient(client);
@@ -43,26 +43,36 @@ public class YahooApiController {
 
 	@ResponseBody
 	@GetMapping("local-search")
-	public Mono<Map<String, Object>> localSearch(@RequestParam MultiValueMap<String, String> params) {
+	public Mono<Ydf> localSearch(@RequestParam MultiValueMap<String, String> params) {
 
 		MultiValueMap<String, String> _params = new LinkedMultiValueMap<>(params);
 		_params.put("output", Arrays.asList("json"));
 
 		return yahooapis.get()
 				.uri(b -> b.path("search/local/V1/localSearch").queryParams(_params).build()).retrieve()
-				.bodyToMono(new MapTypeReference());
+				.bodyToMono(Ydf.class);
 	}
 
 	@ResponseBody
 	@GetMapping("geocoder")
-	public Mono<Map<String, Object>> geocode(@RequestParam MultiValueMap<String, String> params) {
-
-		MultiValueMap<String, String> _params = new LinkedMultiValueMap<>(params);
-		_params.put("output", Arrays.asList("json"));
-
+	public Mono<Ydf> geocoder(GeoCoder params) {
+		log.debug("{}", params);
 		return yahooapis.get()
-				.uri(b -> b.path("geocode/V1/geoCoder").queryParams(_params).build()).retrieve()
-				.bodyToMono(new MapTypeReference());
+				.uri(b -> b.path("geocode/V1/geoCoder")
+						.queryParams(params.parameters()).build())
+				.retrieve()
+				.bodyToMono(Ydf.class);
+	}
+
+	@ResponseBody
+	@GetMapping(path = "reverse-geocoder", params = { "lon", "lat" })
+	public Mono<Ydf> reverseGeocoder(ReverseGeoCoder params) {
+		log.debug("{}", params);
+		return yahooapis.get()
+				.uri(b -> b.path("geoapi/V1/reverseGeoCoder")
+						.queryParams(params.parameters()).build())
+				.retrieve()
+				.bodyToMono(Ydf.class);
 	}
 
 }
