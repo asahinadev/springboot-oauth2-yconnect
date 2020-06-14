@@ -6,7 +6,7 @@ import org.springframework.util.MultiValueMap;
 import lombok.Data;
 
 @Data
-public class LatLong {
+public class PlaceInfoRequest {
 
 	double lat;
 	double lon;

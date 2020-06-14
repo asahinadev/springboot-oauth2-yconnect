@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
-public class Zipcode {
+public class ZipcodeRequest {
 
 	public enum Area {
 		TOWN, BUILDING, CITY, CORPORATION, PRIVATE

@@ -11,7 +11,7 @@ import com.example.spring.yconnect.dto.ydt.Datum;
 import lombok.Data;
 
 @Data
-public class LocalSearch {
+public class LocalSearchRequest {
 
 	enum Sort {
 		string,

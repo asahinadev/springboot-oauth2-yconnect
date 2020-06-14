@@ -1,7 +1,5 @@
 package com.example.spring.yconnect.dto.ydt;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -32,9 +30,7 @@ public class Geometry {
 
 	/** 経度・緯度情報. */
 	@JsonProperty("Coordinates")
-	@JsonSerialize(converter = Coordinate.ListSerializer.class)
-	@JsonDeserialize(converter = Coordinate.ListDeserializer.class)
-	List<Coordinate> coordinates;
+	String coordinates;
 
 	/** 表示範囲. */
 	@JsonProperty("BoundingBox")

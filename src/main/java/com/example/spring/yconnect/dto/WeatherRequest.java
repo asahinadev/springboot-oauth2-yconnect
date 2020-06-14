@@ -11,7 +11,7 @@ import org.springframework.util.MultiValueMap;
 import lombok.Data;
 
 @Data
-public class Weather {
+public class WeatherRequest {
 
 	String coordinates;
 	Double lat;

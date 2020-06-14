@@ -9,7 +9,7 @@ import com.example.spring.yconnect.dto.ydt.Datum;
 import lombok.Data;
 
 @Data
-public class GeoCoder {
+public class GeoCoderRequest {
 	enum Ar {
 		ge, le, eq
 	}

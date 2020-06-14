@@ -6,16 +6,18 @@ import org.springframework.util.MultiValueMap;
 import lombok.Data;
 
 @Data
-public class AddressDirectory {
+public class ReviewRequest {
 
-	String ac;
+	int results = 10;
+	int start = 1;
 
 	public MultiValueMap<String, String> parameters() {
 
 		MultiValueMap<String, String> m = new LinkedMultiValueMap<>();
-		m.add("ac", ac);
+
+		m.add("start", Integer.toString(start));
+		m.add("results", Integer.toString(results));
 		m.add("output", "json");
-		m.add("mode", "2");
 
 		return m;
 	}

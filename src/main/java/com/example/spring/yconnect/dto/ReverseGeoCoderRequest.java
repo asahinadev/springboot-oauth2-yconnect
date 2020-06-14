@@ -8,7 +8,7 @@ import com.example.spring.yconnect.dto.ydt.Datum;
 import lombok.Data;
 
 @Data
-public class ReverseGeoCoder {
+public class ReverseGeoCoderRequest {
 
 	double lat;
 	double lon;

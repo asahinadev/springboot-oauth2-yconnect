@@ -17,5 +17,5 @@
 
 * -Dspring.security.oauth2.client.registration.yconnect.client-id
 * -Dspring.security.oauth2.client.registration.yconnect.client-secret
-    
-    
+* -Dapp.yahooapi.config.apikey
+
